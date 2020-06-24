@@ -1,41 +1,39 @@
 package com.social.multiplication.domain;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+
 /**
- * This class represents the multiplication
+ * This class represents the multiplication (A * B)
  * 
  * @author mocha
  *
  */
-public class Multiplication {
+@RequiredArgsConstructor
+@Getter
+@ToString
+@EqualsAndHashCode
+public final class Multiplication {
 	// Both factors
-	private int factorA;
-	private int factorB;
+	private final int factorA;
+	private final int factorB;
 
 	// The result of A * B
 	private int result;
-
-	public Multiplication(int factorA, int factorB) {
-		super();
-		this.factorA = factorA;
-		this.factorB = factorB;
-		this.result = factorA * factorB;
+	
+	// Empty constructor for JSON (de)serialization
+	Multiplication() {
+		this(0, 0);
 	}
-
-	public int getFactorA() {
-		return factorA;
+	
+	private void setResult() {
+		result = factorA * factorB;
 	}
-
-	public int getFactorB() {
-		return factorB;
-	}
-
+	
 	public int getResult() {
+		setResult();
 		return result;
 	}
-
-	@Override
-	public String toString() {
-		return "Multiplication [factorA=" + factorA + ", factorB=" + factorB + ", result(A*B)=" + result + "]";
-	}
-
 }

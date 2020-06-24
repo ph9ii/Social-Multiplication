@@ -1,13 +1,19 @@
 package com.social.multiplication.service;
 
 import com.social.multiplication.domain.Multiplication;
+import com.social.multiplication.domain.MultiplicationResultAttempt;
 
 public interface MultiplicationService {
 	/**
-	 * Creates a Multiplication object with two randomly generated factors between
-	 * 11 and 99
+	 * Generates a random {@link Multiplication} object.
 	 * 
-	 * @return a Multiplication object with random factors
+	 * @return a Multiplication object with randomly generated factors.
 	 */
 	Multiplication createRandomMultiplication();
+
+	/**
+	 * @return true if the attempt matches the result of the multiplication, false
+	 *         otherwise.
+	 */
+	boolean checkAttempt(final MultiplicationResultAttempt resultAttempt);
 }

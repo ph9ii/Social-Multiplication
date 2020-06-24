@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.social.multiplication.domain.Multiplication;
+import com.social.multiplication.domain.MultiplicationResultAttempt;
+import com.social.multiplication.domain.User;
 
 public class MultiplicationServiceImplTest {
 	private MultiplicationServiceImpl multiplicationServiceImpl;
@@ -35,5 +37,33 @@ public class MultiplicationServiceImplTest {
 		assertThat(multiplication.getFactorA()).isEqualTo(50);
 		assertThat(multiplication.getFactorB()).isEqualTo(30);
 		assertThat(multiplication.getResult()).isEqualTo(1500);
+	}
+
+	@Test
+	public void checkCorrectAttemptTest() {
+		// given
+		Multiplication multiplication = new Multiplication(50, 60);
+		User user = new User("John_Doe");
+		MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3000);
+
+		// when
+		boolean attemptResult = multiplicationServiceImpl.checkAttempt(attempt);
+
+		// assert
+		assertThat(attemptResult).isTrue();
+	}
+	
+	@Test
+	public void checkWrongAttemptTest() {
+		// given
+		Multiplication multiplication = new Multiplication(50, 60);
+		User user = new User("John_Doe");
+		MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3010);
+
+		// when
+		boolean attemptResult = multiplicationServiceImpl.checkAttempt(attempt);
+
+		// assert
+		assertThat(attemptResult).isFalse();
 	}
 }
