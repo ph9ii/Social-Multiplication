@@ -6,24 +6,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class RandomGeneratorServiceTest {
-
-	@Autowired
-	private RandomGeneratorService randomGeneratorService;
-
+public class RandomGeneratorServiceImplTest {
+	private RandomGeneratorServiceImpl randomGeneratorServiceImpl;
+	
+	
+	@Before
+	public void setUp() {
+		randomGeneratorServiceImpl = new RandomGeneratorServiceImpl();
+	}
+	
 	@SuppressWarnings("deprecation")
 	@Test
-	public void generateRandomFactorIsBetweenExpectedLimits() throws Exception {
+	public void generateRandomFactorIsBetweenExpectedLimits()  throws Exception {
 		// when a good simple of randomly generated factor is generated
-		List<Integer> randomFactors = IntStream.range(0, 1000).map(i -> randomGeneratorService.generateRandomFactor())
+		List<Integer> randomFactors = IntStream.range(0, 1000).map(i -> randomGeneratorServiceImpl.generateRandomFactor())
 				.boxed().collect(Collectors.toList());
 
 		// then all of them should be between 11 and 100
@@ -32,4 +31,5 @@ public class RandomGeneratorServiceTest {
 				.containsOnlyElementsOf(IntStream.range(11, 100).boxed().collect(Collectors.toList()));
 		
 	}
+	
 }
