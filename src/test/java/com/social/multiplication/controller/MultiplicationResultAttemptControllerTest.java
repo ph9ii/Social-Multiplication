@@ -36,8 +36,7 @@ public class MultiplicationResultAttemptControllerTest {
 	private MockMvc mvc;
 
 	// This object will be magically initialized by the initField method below.
-	private JacksonTester<MultiplicationResultAttempt> jsonResult;
-	private JacksonTester<ResultResponse> jsonResponse;
+	private JacksonTester<MultiplicationResultAttempt> json;
 
 	@Before
 	public void setUp() {
@@ -60,15 +59,15 @@ public class MultiplicationResultAttemptControllerTest {
 
 		User user = new User("John");
 		Multiplication multiplication = new Multiplication(50, 70);
-		MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3500);
+		MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3500, false);
 
 		// when
 		MockHttpServletResponse response = mvc.perform(
-				post("/results").contentType(MediaType.APPLICATION_JSON).content(jsonResult.write(attempt).getJson()))
+				post("/results").contentType(MediaType.APPLICATION_JSON).content(json.write(attempt).getJson()))
 				.andReturn().getResponse();
 
 		// then
 		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-		assertThat(response.getContentAsString()).isEqualTo(jsonResponse.write(new ResultResponse(correct)).getJson());
+		assertThat(response.getContentAsString()).isEqualTo(json.write(new MultiplicationResultAttempt(attempt.getUser(),attempt.getMultiplication(), attempt.getResultAttempt(), correct)).getJson());
 	}
 }
