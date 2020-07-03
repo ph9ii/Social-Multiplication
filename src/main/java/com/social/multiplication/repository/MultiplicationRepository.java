@@ -1,5 +1,7 @@
 package com.social.multiplication.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.social.multiplication.domain.Multiplication;
@@ -10,4 +12,5 @@ import com.social.multiplication.domain.Multiplication;
  *
  */
 public interface MultiplicationRepository extends CrudRepository<Multiplication, Long> {
+	Optional<Multiplication> findByResult(final int result);
 }

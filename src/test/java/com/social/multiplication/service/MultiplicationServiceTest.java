@@ -35,5 +35,4 @@ public class MultiplicationServiceTest {
 		assertThat(multiplication.getFactorB()).isEqualTo(30);
 		assertThat(multiplication.getResult()).isEqualTo(1500);
 	}
-
 }
