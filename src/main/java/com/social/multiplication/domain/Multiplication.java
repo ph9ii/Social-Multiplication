@@ -40,7 +40,7 @@ public final class Multiplication {
 		this(0, 0);
 	}
 
-	private void setResult() {
+	protected void setResult() {
 		result = factorA * factorB;
 	}
 
