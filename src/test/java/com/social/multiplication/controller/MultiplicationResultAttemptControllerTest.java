@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.assertj.core.util.Lists;
 import org.junit.Before;
@@ -59,10 +60,26 @@ public class MultiplicationResultAttemptControllerTest {
 		// when
 		MockHttpServletResponse response = mvc.perform(get("/results").param("alias", "John_Doe")).andReturn()
 				.getResponse();
-		
+
 		// then(assert)
 		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
 		assertThat(response.getContentAsString()).isEqualTo(jsonResultAttemptList.write(recentAttempts).getJson());
+	}
+
+	@Test
+	public void getResultByIdTest() throws Exception {
+		// given
+		User user = new User("John_Doe");
+		Multiplication multiplication = new Multiplication(50, 70);
+		MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3500, true);
+		given(multiplicationService.getResultById(4L)).willReturn(Optional.of(attempt));
+
+		// when
+		MockHttpServletResponse response = mvc.perform(get("/results/4")).andReturn().getResponse();
+
+		// assert
+		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+		assertThat(response.getContentAsString()).isEqualTo(json.write(attempt).getJson());
 	}
 
 	@Test

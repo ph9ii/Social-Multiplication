@@ -20,6 +20,13 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class MultiplicationSolvedEvent implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7406653196222024366L;
+	/**
+	 * 
+	 */
 	private final Long MultiplicationResultAttemptId;
 	private final Long userId;
 	private final boolean correct;
